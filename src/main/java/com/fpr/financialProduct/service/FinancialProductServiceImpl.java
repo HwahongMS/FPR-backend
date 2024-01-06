@@ -1,2 +1,4 @@
-package com.fpr.financialProduct.service;public class FinancialproductServiceImpl {
+package com.fpr.financialProduct.service;
+
+public class FinancialProductServiceImpl {
 }

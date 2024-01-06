@@ -1,2 +1,4 @@
-package com.fpr.myPage.service;public interface MyPageService {
+package com.fpr.myPage.service;
+
+public interface MyPageService {
 }

@@ -1,4 +1,4 @@
-package com.fpr.finanicalGoal.service;
+package com.fpr.financialGoal.service;
 
 public class FinancialGoalServiceImpl {
 }
