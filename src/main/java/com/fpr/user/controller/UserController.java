@@ -1,2 +1,4 @@
-package com.fpr.user.controller;public class UserController {
+package com.fpr.user.controller;
+
+public class UserController {
 }

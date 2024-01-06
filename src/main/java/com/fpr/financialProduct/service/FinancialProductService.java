@@ -1,2 +1,4 @@
-package com.fpr.financialProduct.service;public interface FinancialProductService {
+package com.fpr.financialProduct.service;
+
+public interface FinancialProductService {
 }

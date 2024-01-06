@@ -1,2 +1,4 @@
-package com.fpr.financialGoal.controller;public class FinancialGoalController {
+package com.fpr.financialGoal.controller;
+
+public class FinancialGoalController {
 }

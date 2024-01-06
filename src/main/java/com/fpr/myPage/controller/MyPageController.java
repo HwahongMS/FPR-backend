@@ -1,2 +1,4 @@
-package com.fpr.myPage.controller;public class MyPageController {
+package com.fpr.myPage.controller;
+
+public class MyPageController {
 }
