@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### private properties
+src/main/resources/application-private.properties
+src/main/resources/db-application.properties
+
