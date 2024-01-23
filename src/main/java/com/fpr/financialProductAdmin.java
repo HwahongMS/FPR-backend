@@ -25,7 +25,7 @@ public class financialProductAdmin {
                 url,
                 String.class
         );
-        System.out.println(response);
+        System.out.println(response.getBody());
 
         //TODO Json Parser 사용하여 DTO
     }
