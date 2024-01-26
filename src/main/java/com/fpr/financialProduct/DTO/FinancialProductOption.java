@@ -1,0 +1,28 @@
+package com.fpr.financialProduct.DTO;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class FinancialProductOption {
+    @JsonProperty("fin_prdt_cd")
+    private String financialProductCode;
+
+    @JsonProperty("intr_rate_type_nm")
+    private String interestRateTypeName;
+
+    @JsonProperty("save_trm")
+    private String saveTerm;
+
+    @JsonProperty("intr_rate")
+    private int interestRate;
+
+    @JsonProperty("intr_rate2")
+    private int interestRate2;
+
+    // Getter와 Setter 메서드
+}
