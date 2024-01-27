@@ -1,7 +1,11 @@
 package com.fpr.financialProduct.entity;
 
+import com.fpr.financialProduct.DTO.FinancialProductOption;
+import com.fpr.financialProduct.repository.JpaFinancialProductRepository;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Optional;
 
 @Data
 @Entity
@@ -10,7 +14,7 @@ public class FinancialProductOptionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long finOptionKey;
 
     @ManyToOne
     @JoinColumn(name = "financial_product_code", referencedColumnName = "financial_product_code")
@@ -27,4 +31,12 @@ public class FinancialProductOptionEntity {
 
     @Column(name = "interest_rate2")
     private int interestRate2;
+
+    public FinancialProductOptionEntity(FinancialProductEntity financialProductEntity, FinancialProductOption financialProductOption) {
+        this.interestRateTypeName = financialProductOption.getInterestRateTypeName();
+        this.interestRate = financialProductOption.getInterestRate();
+        this.interestRate2 = financialProductOption.getInterestRate2();
+        this.saveTerm = financialProductOption.getSaveTerm();
+        this.financialProduct = financialProductEntity;
+    }
 }

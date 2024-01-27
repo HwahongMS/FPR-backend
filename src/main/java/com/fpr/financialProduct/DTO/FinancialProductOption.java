@@ -24,5 +24,4 @@ public class FinancialProductOption {
     @JsonProperty("intr_rate2")
     private int interestRate2;
 
-    // Getter와 Setter 메서드
 }

@@ -1,5 +1,6 @@
 package com.fpr.financialProduct.entity;
 
+import com.fpr.financialProduct.DTO.FinancialProduct;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -45,4 +46,21 @@ public class FinancialProductEntity {
 
     @OneToMany(mappedBy = "financialProduct", cascade = CascadeType.ALL)
     private List<FinancialProductOptionEntity> options;
+
+    public FinancialProductEntity() {
+
+    }
+    public FinancialProductEntity(FinancialProduct financialProduct) {
+        this.financialProductCode = financialProduct.getFinancialProductCode();
+        this.etcNote = financialProduct.getEtcNote();
+        this.financialTypeName = financialProduct.getFinancialTypeName();
+        this.financialProductName = financialProduct.getFinancialProductName();
+        this.declarationStartDate = financialProduct.getDeclarationStartDate();
+        this.joinMember = financialProduct.getJoinMember();
+        this.joinWay = financialProduct.getJoinWay();
+        this.koreanCompanyName = financialProduct.getKoreanCompanyName();
+        this.maturityInterest = financialProduct.getMaturityInterest();
+        this.maxLimit = financialProduct.getMaxLimit();
+        this.specialCondition = financialProduct.getSpecialCondition();
+    }
 }
