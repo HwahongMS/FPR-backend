@@ -1,6 +1,6 @@
 package com.fpr.financialProduct.entity;
 
-import com.fpr.financialProduct.DTO.FinancialProduct;
+import com.fpr.financialProduct.dto.FinancialProduct;
 import jakarta.persistence.*;
 import lombok.Data;
 
