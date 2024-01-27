@@ -45,7 +45,10 @@ public class financialProductAdmin {
         String responseBody = response.getBody();
 
         try {
+            //DB 초기화
+            jpaFinancialProductOptionRepository.clearFinancialProductOption();
             jpaFinancialProductRepository.clearFinancialProduct();
+
             ObjectMapper objectMapper = new ObjectMapper();
             FinancialProductResponse financialProductResponse = objectMapper.readValue(responseBody, FinancialProductResponse.class);
             List<FinancialProduct> financialProductList = financialProductResponse.getResult().getBaseList(); //상품 리스트

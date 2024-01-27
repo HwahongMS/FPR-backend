@@ -33,6 +33,6 @@ public class JpaFinancialProductRepository {
     }
 
     public void clearFinancialProduct() {
-        em.clear();
+        em.createQuery("delete from FinancialProductEntity").executeUpdate();
     }
 }
