@@ -1,14 +1,19 @@
 package com.fpr.user.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Persistent;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "user_financial_goal")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
