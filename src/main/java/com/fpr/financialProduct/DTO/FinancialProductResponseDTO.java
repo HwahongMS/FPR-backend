@@ -2,18 +2,17 @@ package com.fpr.financialProduct.DTO;
 
 import lombok.Data;
 
-import java.util.Date;
-
+@Data
 public class FinancialProductResponseDTO {
-    public String finPrdtCd;
-    public String korCoNm;
-    public String finPrdtMm;
-    public String joinWay;
-    public String mtrtInt;
-    public String spclCnd;
-    public String joinMember;
-    public String etxNote;
-    public int maxLimit;
-    public Date dxlsStartDay;
-    public String finTypeNm;
+    private String finPrdtCd;
+    private String korCoNm;
+    private String finPrdtnm;
+    private String joinWay;
+    private String mtrtInt;
+    private String spclCnd;
+    private String joinMember;
+    private String etcNote;
+    private int maxLimit;
+    private String dclsStartDay;
+    private String finTypeNm;
 }
