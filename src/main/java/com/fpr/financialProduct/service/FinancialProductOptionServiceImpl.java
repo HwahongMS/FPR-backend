@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class FinancialProductServiceImpl implements FinancialProductService{
+public class FinancialProductOptionServiceImpl implements FinancialProductOptionService{
     private final JpaFinancialProductOptionRepository jpaFinancialProductOptionRepository;
+
 }
