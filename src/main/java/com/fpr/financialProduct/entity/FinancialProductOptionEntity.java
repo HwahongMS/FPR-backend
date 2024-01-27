@@ -1,10 +1,8 @@
 package com.fpr.financialProduct.entity;
 
-import com.fpr.financialProduct.DTO.FinancialProductOption;
+import com.fpr.financialProduct.dto.FinancialProductOption;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.Optional;
 
 @Data
 @Entity

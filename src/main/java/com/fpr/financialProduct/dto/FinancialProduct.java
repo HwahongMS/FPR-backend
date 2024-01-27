@@ -1,4 +1,4 @@
-package com.fpr.financialProduct.DTO;
+package com.fpr.financialProduct.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -41,4 +41,5 @@ public class FinancialProduct {
 
     @JsonProperty("fin_type_nm")
     private String financialTypeName;
+
 }
