@@ -1,34 +1,37 @@
 package com.fpr;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpr.financialProduct.DTO.FinancialProductResponseDTO;
-import com.fpr.financialProduct.FinancialProductResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.fpr.financialProduct.DTO.FinancialProduct;
+import com.fpr.financialProduct.DTO.FinancialProductOption;
+import com.fpr.financialProduct.DTO.FinancialProductResponse;
+import com.fpr.financialProduct.entity.FinancialProductEntity;
+import com.fpr.financialProduct.entity.FinancialProductOptionEntity;
+import com.fpr.financialProduct.repository.JpaFinancialProductOptionRepository;
+import com.fpr.financialProduct.repository.JpaFinancialProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 @Component
 public class financialProductAdmin {
     @Value("${financial.api_key}")
     private String financialApiKey;
 
-    //    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
+    @Autowired
+    JpaFinancialProductRepository jpaFinancialProductRepository;
+    @Autowired
+    JpaFinancialProductOptionRepository jpaFinancialProductOptionRepository;
+
+
+//    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
     @Scheduled(fixedDelay = 1000000)
     public void updateFinancialProduct() throws IOException {
         RestTemplate rt = new RestTemplate();
@@ -38,15 +41,35 @@ public class financialProductAdmin {
                 url,
                 String.class
         );
+        System.out.println(response);
         String responseBody = response.getBody();
-        //TODO Json Parser 사용하여 DTO
-        ObjectMapper mapper = new ObjectMapper(); // create once, reuse
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //정의되지 않은 json 필드는 무시하도록 설정
-        try{
-            FinancialProductResponse financialProductResponse = mapper.readValue(responseBody, FinancialProductResponse.class);
-            System.out.println(financialProductResponse.getResult());
+
+        try {
+            //DB 초기화
+            jpaFinancialProductOptionRepository.clearFinancialProductOption();
+            jpaFinancialProductRepository.clearFinancialProduct();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            FinancialProductResponse financialProductResponse = objectMapper.readValue(responseBody, FinancialProductResponse.class);
+            List<FinancialProduct> financialProductList = financialProductResponse.getResult().getBaseList(); //상품 리스트
+            List<FinancialProductOption> financialProductOptionList = financialProductResponse.getResult().getOptionList(); //상품 옵션 리스트
+
+            for (FinancialProduct fp : financialProductList) {
+                FinancialProductEntity financialProductEntity = new FinancialProductEntity(fp);
+                jpaFinancialProductRepository.save(financialProductEntity);
+                for (FinancialProductOption fpo : financialProductOptionList){
+                    if (Objects.equals(fpo.getFinancialProductCode(), fp.getFinancialProductCode())) {
+                        FinancialProductOptionEntity financialProductOptionEntity = new FinancialProductOptionEntity(financialProductEntity, fpo);
+                        jpaFinancialProductOptionRepository.save(financialProductOptionEntity);
+                    }
+                }
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        System.out.println("결과 = " + jpaFinancialProductRepository.findAll());
+
     }
 }
