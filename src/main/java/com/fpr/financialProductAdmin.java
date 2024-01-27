@@ -6,7 +6,6 @@ import com.fpr.financialProduct.DTO.FinancialProductOption;
 import com.fpr.financialProduct.DTO.FinancialProductResponse;
 import com.fpr.financialProduct.repository.JpaFinancialProductOptionRepository;
 import com.fpr.financialProduct.repository.JpaFinancialProductRepository;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -29,8 +30,9 @@ public class financialProductAdmin {
 
 //    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
     @Scheduled(fixedDelay = 1000000)
-    public void updateFinancialProduct () {
+    public void updateFinancialProduct() throws IOException {
         RestTemplate rt = new RestTemplate();
+
         String url = String.format("https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?auth=%s&topFinGrpNo=020000&pageNo=1", financialApiKey);
         ResponseEntity<String> response = rt.getForEntity(
                 url,
@@ -38,7 +40,6 @@ public class financialProductAdmin {
         );
         System.out.println(response);
         String responseBody = response.getBody();
-        //TODO Json Parser 사용하여 DTO
 
         try {
             jpaFinancialProductRepository.clearFinancialProduct();
@@ -61,7 +62,6 @@ public class financialProductAdmin {
         }
 
         System.out.println("결과 = " + jpaFinancialProductRepository.findAll());
+
     }
-
-
 }
