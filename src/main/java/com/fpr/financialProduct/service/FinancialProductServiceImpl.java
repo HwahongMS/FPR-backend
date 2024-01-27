@@ -1,7 +1,7 @@
 package com.fpr.financialProduct.service;
 
-import com.fpr.financialProduct.DTO.FinancialProduct;
-import com.fpr.financialProduct.DTO.FinancialProductOption;
+import com.fpr.financialProduct.dto.FinancialProduct;
+import com.fpr.financialProduct.dto.FinancialProductOption;
 import com.fpr.financialProduct.entity.FinancialProductEntity;
 import com.fpr.financialProduct.entity.FinancialProductOptionEntity;
 import com.fpr.financialProduct.repository.JpaFinancialProductOptionRepository;

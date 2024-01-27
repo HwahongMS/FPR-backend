@@ -1,10 +1,10 @@
-package com.fpr;
+package com.fpr.financialProduct.schedule;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpr.financialProduct.DTO.FinancialProduct;
-import com.fpr.financialProduct.DTO.FinancialProductOption;
-import com.fpr.financialProduct.DTO.FinancialProductResponse;
-import com.fpr.financialProduct.DTO.Result;
+import com.fpr.financialProduct.dto.FinancialProduct;
+import com.fpr.financialProduct.dto.FinancialProductOption;
+import com.fpr.financialProduct.dto.FinancialProductResponse;
+import com.fpr.financialProduct.dto.Result;
 import com.fpr.financialProduct.service.FinancialProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Component
-public class financialProductAdmin {
+public class financialProductScheduler {
     @Value("${financial.api_key}")
     private String financialApiKey;
 

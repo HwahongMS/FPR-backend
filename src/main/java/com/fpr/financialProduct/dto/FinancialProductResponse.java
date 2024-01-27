@@ -1,4 +1,4 @@
-package com.fpr.financialProduct.DTO;
+package com.fpr.financialProduct.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
