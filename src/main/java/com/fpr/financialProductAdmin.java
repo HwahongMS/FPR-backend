@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpr.financialProduct.DTO.FinancialProduct;
 import com.fpr.financialProduct.DTO.FinancialProductOption;
 import com.fpr.financialProduct.DTO.FinancialProductResponse;
+import com.fpr.financialProduct.entity.FinancialProductEntity;
+import com.fpr.financialProduct.entity.FinancialProductOptionEntity;
 import com.fpr.financialProduct.repository.JpaFinancialProductOptionRepository;
 import com.fpr.financialProduct.repository.JpaFinancialProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class financialProductAdmin {
@@ -49,10 +52,12 @@ public class financialProductAdmin {
             List<FinancialProductOption> financialProductOptionList = financialProductResponse.getResult().getOptionList(); //상품 옵션 리스트
 
             for (FinancialProduct fp : financialProductList) {
-                jpaFinancialProductRepository.save(fp);
+                FinancialProductEntity financialProductEntity = new FinancialProductEntity(fp);
+                jpaFinancialProductRepository.save(financialProductEntity);
                 for (FinancialProductOption fpo : financialProductOptionList){
-                    if (fpo.getFinancialProductCode().equals(fpo.getFinancialProductCode())) {
-                        jpaFinancialProductOptionRepository.save(fp, fpo);
+                    if (Objects.equals(fpo.getFinancialProductCode(), fp.getFinancialProductCode())) {
+                        FinancialProductOptionEntity financialProductOptionEntity = new FinancialProductOptionEntity(financialProductEntity, fpo);
+                        jpaFinancialProductOptionRepository.save(financialProductOptionEntity);
                     }
                 }
             }

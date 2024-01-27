@@ -1,7 +1,6 @@
 package com.fpr.financialProduct.entity;
 
 import com.fpr.financialProduct.DTO.FinancialProductOption;
-import com.fpr.financialProduct.repository.JpaFinancialProductRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +13,7 @@ public class FinancialProductOptionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "fin_option_key")
     private Long finOptionKey;
 
     @ManyToOne
@@ -32,6 +32,9 @@ public class FinancialProductOptionEntity {
     @Column(name = "interest_rate2")
     private int interestRate2;
 
+    public FinancialProductOptionEntity() {
+
+    }
     public FinancialProductOptionEntity(FinancialProductEntity financialProductEntity, FinancialProductOption financialProductOption) {
         this.interestRateTypeName = financialProductOption.getInterestRateTypeName();
         this.interestRate = financialProductOption.getInterestRate();
@@ -39,4 +42,5 @@ public class FinancialProductOptionEntity {
         this.saveTerm = financialProductOption.getSaveTerm();
         this.financialProduct = financialProductEntity;
     }
+
 }

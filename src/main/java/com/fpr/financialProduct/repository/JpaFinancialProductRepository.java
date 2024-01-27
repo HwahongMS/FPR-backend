@@ -1,6 +1,5 @@
 package com.fpr.financialProduct.repository;
 
-import com.fpr.financialProduct.DTO.FinancialProduct;
 import com.fpr.financialProduct.entity.FinancialProductEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -16,11 +15,8 @@ import java.util.Optional;
 public class JpaFinancialProductRepository {
     private final EntityManager em;
 
-    public FinancialProductEntity save(FinancialProduct financialProduct) {
-        FinancialProductEntity financialProductEntity = new FinancialProductEntity(financialProduct);
-        if (findById(financialProduct.getFinancialProductCode()).isEmpty()) {
-            em.persist(financialProductEntity);
-        }
+    public FinancialProductEntity save(FinancialProductEntity financialProductEntity) {
+        em.persist(financialProductEntity);
         return financialProductEntity;
     }
 
