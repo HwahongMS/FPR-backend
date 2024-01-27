@@ -41,4 +41,5 @@ public class FinancialProduct {
 
     @JsonProperty("fin_type_nm")
     private String financialTypeName;
+
 }
