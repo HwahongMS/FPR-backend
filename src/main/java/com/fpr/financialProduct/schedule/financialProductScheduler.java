@@ -23,7 +23,7 @@ public class financialProductScheduler {
     FinancialProductServiceImpl financialProductService;
 
 //    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
-    @Scheduled(fixedDelay = 1000000)
+    @Scheduled(fixedDelay = 100000)
     public void updateFinancialProduct() {
         String url = "https://finlife.fss.or.kr/finlifeapi/%s.json?auth=%s&topFinGrpNo=020000&pageNo=%d";
         financialProductService.clearFinancial();
@@ -69,11 +69,12 @@ public class financialProductScheduler {
         String responseBody = response.getBody();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Result result = objectMapper.readValue(responseBody, Result.class);
-            maxPage = result.getMaxPageNo();
+            FinancialProductResponse financialProductResponse = objectMapper.readValue(responseBody, FinancialProductResponse.class);
+            maxPage = financialProductResponse.getResult().getMaxPageNo();;
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("maxPage = " + maxPage);
         return maxPage;
     }
 }
