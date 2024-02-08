@@ -2,11 +2,13 @@ package com.fpr.user.repository;
 
 import com.fpr.user.entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -21,9 +23,11 @@ public class JpaUserRepository {
         return user;
     }
 
-    public Optional<User> findById(String userId) {
-        User user = em.find(User.class, userId);
-        return Optional.ofNullable(user);
+    public Optional<User> findByEmail(String email) {
+        List<User> existUsers = em.createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultList();
+        return existUsers.stream().findAny();
     }
 
     public void clearUser() {
