@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-@RestController
-@RequestMapping("/users")
 public class UserController {
 
     private final KakaoApi kakaoApi;
     private final UserService userService;
 
-    @GetMapping("user/login")
-    public String loginForm(Model model){
-        model.addAttribute("kakaoApiKey", kakaoApi.getKakaoApiKey());
-        model.addAttribute("redirectUri", kakaoApi.getKakaoRedirectUri());
-        return "login";
+    @GetMapping("/users/login")
+    public String loginForm(Model model) {
+        String loginUrl = "https://kauth.kakao.com/oauth/authorize?client_id="+ kakaoApi.getKakaoApiKey()
+                +"&redirect_uri="+kakaoApi.getKakaoRedirectUri()+"&response_type=code";
+        model.addAttribute("loginUrl", loginUrl);
+        return "login"; // login.html 뷰를 반환
     }
 
-    @GetMapping("/login/oauth/kakao")
+    @GetMapping("login/oauth/kakao")
     @ResponseBody
     public String kakaoCallback(String code) throws ParseException {
         String accessToken = kakaoApi.getKakaoAccessToken(code);
         ResponseEntity<String> userInfo = kakaoApi.getUserInfo(accessToken);
-        return "카카오 인증완료 반환값: " + userInfo;
+        return userInfo.getBody();
     }
 
 }
