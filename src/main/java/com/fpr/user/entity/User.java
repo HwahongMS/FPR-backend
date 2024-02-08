@@ -30,9 +30,15 @@ public class User {
 
     private String createDate;
 
+    private String imgUrl;
+    private String thumbnailUrl;
+
     public User(UserDTO userDTO) {
         this.nickname = userDTO.getProperties().getNickname();
         this.email = userDTO.getKakaoAccount().getEmail();
+        this.imgUrl = userDTO.getProperties().getProfileImage();
+        this.thumbnailUrl =userDTO.getProperties().getThumbnailImage();
+
         // 문자열을 LocalDateTime으로 파싱
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         LocalDateTime parsedDateTime = LocalDateTime.parse(userDTO.getConnectedAt(), formatter);
