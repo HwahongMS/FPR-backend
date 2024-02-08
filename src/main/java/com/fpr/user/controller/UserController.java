@@ -32,7 +32,7 @@ public class UserController {
         String loginUrl = "https://kauth.kakao.com/oauth/authorize?client_id="+ kakaoApi.getKakaoApiKey()
                 +"&redirect_uri="+kakaoApi.getKakaoRedirectUri()+"&response_type=code";
         model.addAttribute("loginUrl", loginUrl);
-        return "lon"; // login.html 뷰를 반환
+        return "login"; // login.html 뷰를 반환
     }
 
     @GetMapping("login/oauth/kakao")
