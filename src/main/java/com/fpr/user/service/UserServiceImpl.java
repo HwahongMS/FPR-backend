@@ -20,6 +20,12 @@ public class UserServiceImpl implements UserService{
         if (existUser.isEmpty()) {
             jpaUserRepository.save(user);
         }
+        if(existUser.isPresent()){
+            String existImgUrl = existUser.get().getImgUrl();
+            String existNickName = existUser.get().getNickname();
+            if(!existImgUrl.equals(userDTO.getProperties().getProfileImage()) || !existNickName.equals(userDTO.getProperties().getNickname()))
+                jpaUserRepository.update(existUser.get(),user);
+        }
     }
 
     @Override
