@@ -1,6 +1,11 @@
 package com.fpr.user.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpr.kakao.KakaoApi;
+import com.fpr.user.dto.UserDTO;
+import com.fpr.user.entity.User;
 import com.fpr.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +40,15 @@ public class UserController {
     public String kakaoCallback(String code) throws ParseException {
         String accessToken = kakaoApi.getKakaoAccessToken(code);
         ResponseEntity<String> userInfo = kakaoApi.getUserInfo(accessToken);
-        return userInfo.getBody();
+        String userInfoBody = userInfo.getBody();
+// parsing 기능 service 계층으로 옮기기
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            UserDTO userDTO = objectMapper.readValue(userInfoBody, UserDTO.class);
+            userService.saveUserInfo(userDTO);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return "저장완료";
     }
-
 }
