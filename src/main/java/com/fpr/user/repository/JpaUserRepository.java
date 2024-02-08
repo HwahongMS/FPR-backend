@@ -23,6 +23,14 @@ public class JpaUserRepository {
         return user;
     }
 
+    public User update(User existUser,User user){
+        existUser.setImgUrl(user.getImgUrl());
+        existUser.setThumbnailUrl(user.getThumbnailUrl());
+        existUser.setNickname(user.getNickname());
+        return existUser;
+    }
+
+
     public Optional<User> findByEmail(String email) {
         List<User> existUsers = em.createQuery("select u from User u where u.email = :email", User.class)
                 .setParameter("email", email)
