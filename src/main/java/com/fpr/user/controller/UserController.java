@@ -41,7 +41,8 @@ public class UserController {
         String accessToken = kakaoApi.getKakaoAccessToken(code);
         ResponseEntity<String> userInfo = kakaoApi.getUserInfo(accessToken);
         String userInfoBody = userInfo.getBody();
-// parsing 기능 service 계층으로 옮기기
+        // parsing 기능 service 계층으로 옮기기
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             UserDTO userDTO = objectMapper.readValue(userInfoBody, UserDTO.class);
@@ -49,6 +50,6 @@ public class UserController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return "저장완료";
+        return "response = " + userInfoBody;
     }
 }

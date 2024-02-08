@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//RestController와 Controller의 차이, 그리고 어떤 것을 사용할지 토의
 @RequiredArgsConstructor
 @Controller
 @Slf4j

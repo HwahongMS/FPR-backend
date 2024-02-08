@@ -19,6 +19,7 @@ public class JpaUserRepository {
     private final EntityManager em;
 
     public User save(User user) {
+        em.merge()
         em.persist(user);
         return user;
     }
