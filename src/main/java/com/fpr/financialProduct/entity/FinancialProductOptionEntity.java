@@ -25,10 +25,10 @@ public class FinancialProductOptionEntity {
     private String saveTerm;
 
     @Column(name = "interest_rate")
-    private int interestRate;
+    private double interestRate;
 
     @Column(name = "interest_rate2")
-    private int interestRate2;
+    private double interestRate2;
 
     public FinancialProductOptionEntity() {
 

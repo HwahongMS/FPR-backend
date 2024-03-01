@@ -19,9 +19,9 @@ public class FinancialProductOption {
     private String saveTerm;
 
     @JsonProperty("intr_rate")
-    private int interestRate;
+    private double interestRate;
 
     @JsonProperty("intr_rate2")
-    private int interestRate2;
+    private double interestRate2;
 
 }

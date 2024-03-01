@@ -21,8 +21,8 @@ public class financialProductScheduler {
     @Autowired
     FinancialProductServiceImpl financialProductService;
 
-    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
-//    @Scheduled(fixedDelay = 1000000)
+//    @Scheduled(cron = "0 0 0 * * *") //매일 0시 0분 0초에 실행예약
+    @Scheduled(fixedDelay = 1000000)
     public void updateFinancialProduct() {
         String url = "https://finlife.fss.or.kr/finlifeapi/%s.json?auth=%s&topFinGrpNo=020000&pageNo=%d";
         financialProductService.clearFinancial();
