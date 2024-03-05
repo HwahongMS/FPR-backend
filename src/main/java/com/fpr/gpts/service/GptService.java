@@ -29,25 +29,23 @@ public class GptService {
     private String gptApiKey;
 
     public static String historyContent = "";
+    public Message makePrompt(String content, String role) {
+        StringBuilder prompt = new StringBuilder();
+        prompt.append(content);
+        Message message = new Message(role, prompt.toString());
+        return message;
+    }
     public String getKnowledge() throws JsonProcessingException {
-
         ObjectMapper mapper = new ObjectMapper();
         List<Message> messages = new ArrayList<>();
-        StringBuilder promptSystem = new StringBuilder();
-        StringBuilder promptUser = new StringBuilder();
+        // Assistant API 사용할지 Prompt를 변경할지 선택하기
         // 시스템 역할 설정
-        promptSystem.append("너는 금융전문가로서 금융 지식을 하나 알려주는 역할이야." +
-                "주제 하나를 잡고 그에 대해서 설명해줘" +
-                "주제에는 쌍따옴표로 강조해줘");
-        messages.add(new Message("system", promptSystem.toString()));
-
+        messages.add(makePrompt("너는 금융전문가로서 금융 지식을 하나 알려주는 역할이야." +
+                "주제 하나를 잡고 그에 대해서 설명해줘주제에는 쌍따옴표로 강조해줘", "system"));
         // 사용자의 질문
-
-        promptUser.append(String.format("금융 지식의 주제 중 %s를 제외하고", historyContent));
-        promptUser.append("금융 지식을 알려줘");
-        promptUser.append("\n사담은 필요없어.");
-        messages.add(new Message("user", promptUser.toString()));
-
+        messages.add(makePrompt("오늘의 금융 지식에 대해서 알려줘", "user"));
+        // 어시스턴스
+        messages.add(makePrompt(String.format("주제 중 %s 들을 제외하고 알려줘", historyContent), "assistant"));
         // temperature 는 답변의 창의성을 나타냄 온도가 낮을수록 정보성의 글
         ChatGPTRequestDTO chatGptRequest = new ChatGPTRequestDTO("gpt-3.5-turbo", messages, 0.3);
         String input = null;
