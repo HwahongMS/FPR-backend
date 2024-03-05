@@ -1,4 +1,4 @@
-package com.fpr;
+package com.fpr.config;
 
 import com.fpr.kakao.KakaoApi;
 import org.springframework.beans.factory.annotation.Value;
