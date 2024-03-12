@@ -16,12 +16,13 @@ public class FinancialProductOption {
     private String interestRateTypeName;
 
     @JsonProperty("save_trm")
-    private String saveTerm;
+    private int saveTerm;
 
     @JsonProperty("intr_rate")
     private double interestRate;
 
     @JsonProperty("intr_rate2")
     private double interestRate2;
-
+    @JsonProperty("rsrv_type_nm")
+    private String reserveTypeName;
 }
