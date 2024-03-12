@@ -4,6 +4,7 @@ package com.fpr.financialProduct.service;
 
 import com.fpr.financialProduct.dto.FinancialProduct;
 import com.fpr.financialProduct.dto.FinancialProductOption;
+import com.fpr.financialProduct.dto.TopFinancialProduct;
 import com.fpr.financialProduct.entity.FinancialProductEntity;
 import com.fpr.financialProduct.entity.FinancialProductOptionEntity;
 import com.fpr.financialProduct.repository.JpaFinancialProductOptionRepository;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 @Service
@@ -39,5 +41,11 @@ public class FinancialProductServiceImpl implements FinancialProductService{
     public void clearFinancial() {
         jpaFinancialProductOptionRepository.clearFinancialProductOption();
         jpaFinancialProductRepository.clearFinancialProduct();
+    }
+
+    @Override
+    public List<TopFinancialProduct> getTopFinancialProducts(String productType, int period) {
+        List<TopFinancialProduct> products = jpaFinancialProductRepository.findTopProducts(productType, period);
+        return products;
     }
 }
