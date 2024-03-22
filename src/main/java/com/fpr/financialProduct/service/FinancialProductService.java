@@ -1,8 +1,7 @@
 package com.fpr.financialProduct.service;
 
-import com.fpr.financialProduct.dto.FinancialProduct;
-import com.fpr.financialProduct.dto.FinancialProductOption;
-import com.fpr.financialProduct.dto.TopFinancialProduct;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fpr.financialProduct.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +13,5 @@ public interface FinancialProductService {
     public void clearFinancial();
 
     List<TopFinancialProduct> getTopFinancialProducts(String productType, int period);
+    public String createFinGoalConsult(FinancialGoalConsultRequest financialGoalConsultRequest) throws JsonProcessingException;
 }
